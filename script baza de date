@@ -1,0 +1,127 @@
+USE [Licenta4.0]
+GO
+/****** Object:  Table [dbo].[CategoriiProduse]    Script Date: 24.05.2021 00:35:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CategoriiProduse](
+	[CodCategorie] [int] IDENTITY(1,1) NOT NULL,
+	[DenumireCategorie] [nvarchar](300) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CodCategorie] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Licitatie]    Script Date: 24.05.2021 00:35:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Licitatie](
+	[IDLicitatie] [int] IDENTITY(1,1) NOT NULL,
+	[DataPornire] [datetime2](7) NOT NULL,
+	[DataIncheiere] [datetime2](7) NOT NULL,
+	[PretInitial] [decimal](8, 2) NOT NULL,
+	[IDProdus] [int] NOT NULL,
+ CONSTRAINT [PK__Licitati__4BC0F6E3F0BF10DC] PRIMARY KEY CLUSTERED 
+(
+	[IDLicitatie] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Oferte]    Script Date: 24.05.2021 00:35:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Oferte](
+	[Oferteid] [int] IDENTITY(1,1) NOT NULL,
+	[IDLicitatie] [int] NULL,
+	[IdUser] [int] NULL,
+	[ValoareBid] [decimal](8, 2) NULL,
+	[DataBid] [datetime] NULL,
+ CONSTRAINT [PK__Oferte__F361AF47A01FA8D2] PRIMARY KEY CLUSTERED 
+(
+	[Oferteid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Produse]    Script Date: 24.05.2021 00:35:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Produse](
+	[IDProdus] [int] IDENTITY(1,1) NOT NULL,
+	[NumeProdus] [nvarchar](300) NOT NULL,
+	[PretEstimat] [decimal](8, 2) NOT NULL,
+	[CodCategorie] [int] NOT NULL,
+	[NumeProprietar] [nvarchar](50) NULL,
+	[Imagine] [nvarchar](800) NULL,
+ CONSTRAINT [PK__Produse__F90B7AD4429CBC75] PRIMARY KEY CLUSTERED 
+(
+	[IDProdus] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Useri]    Script Date: 24.05.2021 00:35:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Useri](
+	[IdUser] [int] IDENTITY(1,1) NOT NULL,
+	[Nume] [nvarchar](50) NULL,
+	[Email] [nvarchar](50) NULL,
+	[Telefon] [nvarchar](11) NOT NULL,
+	[Parola] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Useri] PRIMARY KEY CLUSTERED 
+(
+	[IdUser] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UseriRol]    Script Date: 24.05.2021 00:35:44 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UseriRol](
+	[IdRol] [int] IDENTITY(1,1) NOT NULL,
+	[IdUser] [int] NULL,
+	[Rol] [nvarchar](10) NULL,
+ CONSTRAINT [PK_UseriRol] PRIMARY KEY CLUSTERED 
+(
+	[IdRol] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Oferte] ADD  CONSTRAINT [DF_Oferte_DataBid]  DEFAULT (getdate()) FOR [DataBid]
+GO
+ALTER TABLE [dbo].[Licitatie]  WITH CHECK ADD  CONSTRAINT [FK__Licitatie__IDPro__656C112C] FOREIGN KEY([IDProdus])
+REFERENCES [dbo].[Produse] ([IDProdus])
+GO
+ALTER TABLE [dbo].[Licitatie] CHECK CONSTRAINT [FK__Licitatie__IDPro__656C112C]
+GO
+ALTER TABLE [dbo].[Oferte]  WITH CHECK ADD  CONSTRAINT [FK__Oferte__IDLicita__3C69FB99] FOREIGN KEY([IDLicitatie])
+REFERENCES [dbo].[Licitatie] ([IDLicitatie])
+GO
+ALTER TABLE [dbo].[Oferte] CHECK CONSTRAINT [FK__Oferte__IDLicita__3C69FB99]
+GO
+ALTER TABLE [dbo].[Oferte]  WITH CHECK ADD  CONSTRAINT [FK__Oferte__IdUser__3D5E1FD2] FOREIGN KEY([IdUser])
+REFERENCES [dbo].[Useri] ([IdUser])
+GO
+ALTER TABLE [dbo].[Oferte] CHECK CONSTRAINT [FK__Oferte__IdUser__3D5E1FD2]
+GO
+ALTER TABLE [dbo].[Produse]  WITH CHECK ADD  CONSTRAINT [FK__Produse__CodCate__398D8EEE] FOREIGN KEY([CodCategorie])
+REFERENCES [dbo].[CategoriiProduse] ([CodCategorie])
+GO
+ALTER TABLE [dbo].[Produse] CHECK CONSTRAINT [FK__Produse__CodCate__398D8EEE]
+GO
+ALTER TABLE [dbo].[UseriRol]  WITH CHECK ADD  CONSTRAINT [FK__Rol__IdUser__782D8EFF] FOREIGN KEY([IdUser])
+REFERENCES [dbo].[Useri] ([IdUser])
+GO
+ALTER TABLE [dbo].[UseriRol] CHECK CONSTRAINT [FK__Rol__IdUser__782D8EFF]
+GO
