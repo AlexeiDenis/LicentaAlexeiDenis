@@ -1,0 +1,65 @@
+﻿@model LicentaAlexeiDenis.Produse
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3>Confirmi stergerea produsului?</h3>
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeProdus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeProdus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PretEstimat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PretEstimat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeProprietar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeProprietar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imagine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoriiProduse.DenumireCategorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoriiProduse.DenumireCategorie)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sterge" class="btn btn-danger" /> |
+            @Html.ActionLink("Inapoi la lista", "Index")
+        </div>
+    }
+</div>

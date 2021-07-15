@@ -1,0 +1,59 @@
+﻿@model IEnumerable<LicentaAlexeiDenis.Produse>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<p style="font-size:24px;margin-top:12px;">
+    @Html.ActionLink("Adauga un produs nou", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeProdus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PretEstimat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeProprietar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriiProduse.DenumireCategorie)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeProdus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PretEstimat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeProprietar)
+        </td>
+        <td>
+           
+            <img src="@item.Imagine" width="300" height="200" alt="@item.NumeProdus" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoriiProduse.DenumireCategorie)
+        </td>
+        <td>
+            @Html.ActionLink("Modifica", "Edit", new { id=item.IDProdus }) |
+            @Html.ActionLink("Detalii", "Details", new { id=item.IDProdus }) |
+            @Html.ActionLink("Sterge", "Delete", new { id=item.IDProdus })
+        </td>
+    </tr>
+}
+
+</table>

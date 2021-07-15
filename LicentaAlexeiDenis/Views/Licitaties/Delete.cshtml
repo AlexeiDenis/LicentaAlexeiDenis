@@ -1,0 +1,57 @@
+﻿@model LicentaAlexeiDenis.Licitatie
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3>Confirmi stergerea licitatiei nr: @Model.IDLicitatie?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataPornire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPornire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataIncheiere)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataIncheiere)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PretInitial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PretInitial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Produse.NumeProdus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produse.NumeProdus)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sterge" class="btn btn-danger" /> |
+            @Html.ActionLink("Inapoi la pagina principala", "Index")
+        </div>
+    }
+</div>

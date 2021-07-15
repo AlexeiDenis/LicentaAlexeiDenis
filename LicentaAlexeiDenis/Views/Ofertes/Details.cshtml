@@ -1,0 +1,51 @@
+﻿@model LicentaAlexeiDenis.Oferte
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Oferte</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValoareBid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValoareBid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataBid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataBid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Licitatie.IDLicitatie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Licitatie.IDLicitatie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Useri.Nume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Useri.Nume)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Oferteid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

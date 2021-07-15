@@ -1,0 +1,129 @@
+﻿@model IEnumerable<LicentaAlexeiDenis.Licitatie>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="color:#333333">Cele mai recente Licitatii</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Admin"))
+    {
+        <p>
+            @Html.ActionLink("Adauga o noua licitatie", "Create")
+        </p>
+    }
+
+}
+
+@foreach (var item in Model)
+{
+    if (item.DataPornire <= System.DateTime.Now)
+    {
+        <div class="container col-lg-4" style="padding: 20px; ">
+            <div class="panel panel-default text-center " style="
+        height: 500px;
+        width: 25rem;
+        background: whitesmoke linear-gradient(-45deg, #23049d 90px, rgba(0,0,0,0.0) 0);
+        border-radius: 3em;
+        box-shadow: 10px 10px 10px rgba(46,54,68,0.03)">
+                <img class="img-thumbnail" src="@item.Produse.Imagine" alt="@item.Produse.Imagine" style="
+                width: 300px;height: 200px; background: white linear-gradient(135deg, #aa2ee6 100px, rgba(0,0,0,0.0) 0)">
+                <div class="panel-body" style="margin-top:20px;">
+                    <h1 class="panel-title" style="font-size:32px;color:black;">@item.Produse.NumeProdus</h1>
+
+                    @if (item.Oferte.Count < 1)
+                    {
+                        <p class="panel-text" style="color:blueviolet;font-size:16px;"> Sunt zero oferte</p>
+                    }
+                    else if (item.Oferte.Count == 1)
+                    {
+                        <p class="panel-text" style="color:blueviolet;font-size:16px;"> Este o oferta</p>
+
+                    }
+                    else
+                    {
+                        <p class="panel-text" style="color:blueviolet ;font-size:16px;"> Sunt @item.Oferte.Count() oferte</p>
+                    }
+                    @if (item.DataIncheiere < DateTime.Now)
+                    {
+                        <p class="card-text" style="font-size:18px; color:orangered;">Licitatia s-a incheiat!</p>
+                        if (item.Oferte.Count == 0)
+                        {
+                            <p class="card-text" style="font-size:16px"> Pretul de inceput: <span style="color: #10890e">@item.PretInitial.ToString("#") lei</span></p>}
+                        else
+                        {<p class="card-text" style="font-size:16px"> Ultima oferta: <span style="color: #10890e">@item.PretInitial.ToString("#") lei</span></p>}
+                    <p class="card-text" style="font-size:16px; color:#00000075">@item.Produse.CategoriiProduse.DenumireCategorie</p>
+                }
+                else
+                { <p class="card-text" style="font-size:18px; color:orangered;">Data finalizare: @item.DataIncheiere.ToString("dd.MM.yyy")</p>
+                if (item.Oferte.Count == 0)
+                {
+                    <p class="card-text" style="font-size:16px"> Pretul de inceput: <span style="color: #10890e">@item.PretInitial.ToString("#") lei</span></p>}
+                else
+                {<p class="card-text" style="font-size:16px"> Ultima oferta: <span style="color: #10890e">@item.PretInitial.ToString("#") lei</span></p>}
+            <p class="card-text" style="font-size:16px; color:#00000075">@item.Produse.CategoriiProduse.DenumireCategorie</p>}
+                    <p style="font-size:20px;">
+                        @Html.ActionLink("Detalii", "Details", new { id = item.IDLicitatie })
+                    </p>
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <p>
+                                |@Html.ActionLink("Modifica", "Edit", new { id = item.IDLicitatie }) |
+
+                                @Html.ActionLink("Sterge", "Delete", new { id = item.IDLicitatie }) |
+
+                            </p>
+                        }
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    }
+    else { <div class="container col-lg-4" style="padding: 20px; ">
+    <div class="panel panel-default text-center " style="
+        height: 500px;
+        width: 25rem;
+        background: whitesmoke linear-gradient(-45deg, #23049d 90px, rgba(0,0,0,0.0) 0);
+        border-radius: 3em;
+        box-shadow: 10px 10px 10px rgba(46,54,68,0.03)">
+        <img class="img-thumbnail" src="@item.Produse.Imagine" alt="@item.Produse.Imagine" style="width: 300px;height: 200px; background: white linear-gradient(135deg, #aa2ee6 100px, rgba(0,0,0,0.0) 0)">
+        <div class="panel-body" style="margin-top:20px;">
+            <h1 class="panel-title" style="font-size:32px;color:black;">@item.Produse.NumeProdus</h1>
+        <p class="card-text" style="font-size:18px; color:orangered;">Licitatia va incepe pe: @item.DataPornire.ToString("dd.MM.yyy")</p>
+            <p class="card-text" style="font-size:16px"> Pretul de inceput: <span style="color: #10890e">@item.PretInitial.ToString("#") lei</span></p>
+    <p class="card-text" style="font-size:16px; color:#00000075">@item.Produse.CategoriiProduse.DenumireCategorie</p>
+            <p style="font-size:20px;">
+                @Html.ActionLink("Detalii", "Details", new { id = item.IDLicitatie })
+            </p>
+
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    <p>
+                        |@Html.ActionLink("Modifica", "Edit", new { id = item.IDLicitatie }) |
+
+                        @Html.ActionLink("Sterge", "Delete", new { id = item.IDLicitatie }) |
+
+                    </p>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+}
+
+}
+
+

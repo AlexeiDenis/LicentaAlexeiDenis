@@ -1,0 +1,57 @@
+﻿@model LicentaAlexeiDenis.Oferte
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3>Esti sigur ca vrei sa stergi oferta?</h3>
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValoareBid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValoareBid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataBid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataBid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Licitatie.IDLicitatie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Licitatie.IDLicitatie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Useri.Nume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Useri.Nume)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sterge" class="btn btn-danger" /> |
+            @Html.ActionLink("Inapoi la lista ofertelor", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<LicentaAlexeiDenis.Oferte>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ValoareBid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataBid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Licitatie.IDLicitatie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Useri.Nume)
+        </th>
+      
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValoareBid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataBid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Licitatie.IDLicitatie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Useri.Nume)
+        </td>
+        <td>
+            @Html.ActionLink("Modifica", "Edit", new { id=item.Oferteid }) |
+            @Html.ActionLink("Detalii", "Details", new { id=item.Oferteid }) |
+            @Html.ActionLink("Sterge", "Delete", new { id=item.Oferteid })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CategoriiProduse">
+          <Key>
+            <PropertyRef Name="CodCategorie" />
+          </Key>
+          <Property Name="CodCategorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DenumireCategorie" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Licitatie">
+          <Key>
+            <PropertyRef Name="IDLicitatie" />
+          </Key>
+          <Property Name="IDLicitatie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataPornire" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DataIncheiere" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="PretInitial" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="IDProdus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oferte">
+          <Key>
+            <PropertyRef Name="Oferteid" />
+          </Key>
+          <Property Name="Oferteid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDLicitatie" Type="int" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="ValoareBid" Type="decimal" Precision="8" Scale="2" />
+          <Property Name="DataBid" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Produse">
+          <Key>
+            <PropertyRef Name="IDProdus" />
+          </Key>
+          <Property Name="IDProdus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeProdus" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="PretEstimat" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="CodCategorie" Type="int" Nullable="false" />
+          <Property Name="NumeProprietar" Type="nvarchar" MaxLength="50" />
+          <Property Name="Imagine" Type="nvarchar" MaxLength="800" />
+        </EntityType>
+        <EntityType Name="Useri">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nume" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Parola" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UseriRol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK__Licitatie__IDPro__656C112C">
+          <End Role="Produse" Type="Self.Produse" Multiplicity="1" />
+          <End Role="Licitatie" Type="Self.Licitatie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produse">
+              <PropertyRef Name="IDProdus" />
+            </Principal>
+            <Dependent Role="Licitatie">
+              <PropertyRef Name="IDProdus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Oferte__IDLicita__3C69FB99">
+          <End Role="Licitatie" Type="Self.Licitatie" Multiplicity="0..1" />
+          <End Role="Oferte" Type="Self.Oferte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Licitatie">
+              <PropertyRef Name="IDLicitatie" />
+            </Principal>
+            <Dependent Role="Oferte">
+              <PropertyRef Name="IDLicitatie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Oferte__IdUser__3D5E1FD2">
+          <End Role="Useri" Type="Self.Useri" Multiplicity="0..1" />
+          <End Role="Oferte" Type="Self.Oferte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Useri">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Oferte">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produse__CodCate__398D8EEE">
+          <End Role="CategoriiProduse" Type="Self.CategoriiProduse" Multiplicity="1" />
+          <End Role="Produse" Type="Self.Produse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriiProduse">
+              <PropertyRef Name="CodCategorie" />
+            </Principal>
+            <Dependent Role="Produse">
+              <PropertyRef Name="CodCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rol__IdUser__782D8EFF">
+          <End Role="Useri" Type="Self.Useri" Multiplicity="0..1" />
+          <End Role="UseriRol" Type="Self.UseriRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Useri">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="UseriRol">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="CategoriiProduse" EntityType="Self.CategoriiProduse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Licitatie" EntityType="Self.Licitatie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Oferte" EntityType="Self.Oferte" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produse" EntityType="Self.Produse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Useri" EntityType="Self.Useri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UseriRol" EntityType="Self.UseriRol" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Licitatie__IDPro__656C112C" Association="Self.FK__Licitatie__IDPro__656C112C">
+            <End Role="Produse" EntitySet="Produse" />
+            <End Role="Licitatie" EntitySet="Licitatie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Oferte__IDLicita__3C69FB99" Association="Self.FK__Oferte__IDLicita__3C69FB99">
+            <End Role="Licitatie" EntitySet="Licitatie" />
+            <End Role="Oferte" EntitySet="Oferte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Oferte__IdUser__3D5E1FD2" Association="Self.FK__Oferte__IdUser__3D5E1FD2">
+            <End Role="Useri" EntitySet="Useri" />
+            <End Role="Oferte" EntitySet="Oferte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produse__CodCate__398D8EEE" Association="Self.FK__Produse__CodCate__398D8EEE">
+            <End Role="CategoriiProduse" EntitySet="CategoriiProduse" />
+            <End Role="Produse" EntitySet="Produse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rol__IdUser__782D8EFF" Association="Self.FK__Rol__IdUser__782D8EFF">
+            <End Role="Useri" EntitySet="Useri" />
+            <End Role="UseriRol" EntitySet="UseriRol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CategoriiProduse">
+          <Key>
+            <PropertyRef Name="CodCategorie" />
+          </Key>
+          <Property Name="CodCategorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DenumireCategorie" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Produse" Relationship="Model.FK__Produse__CodCate__398D8EEE" FromRole="CategoriiProduse" ToRole="Produse" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategoriiProduse" EntityType="Self.CategoriiProduse" />
+          <EntitySet Name="UseriRol" EntityType="Model.UseriRol" />
+          <EntitySet Name="Produse" EntityType="Model.Produse" />
+          <AssociationSet Name="FK__Produse__CodCate__398D8EEE" Association="Model.FK__Produse__CodCate__398D8EEE">
+            <End Role="CategoriiProduse" EntitySet="CategoriiProduse" />
+            <End Role="Produse" EntitySet="Produse" />
+          </AssociationSet>
+          <EntitySet Name="Useri" EntityType="Model.Useri" />
+          <AssociationSet Name="FK__Rol__IdUser__782D8EFF" Association="Model.FK__Rol__IdUser__782D8EFF">
+            <End Role="Useri" EntitySet="Useri" />
+            <End Role="UseriRol" EntitySet="UseriRol" />
+          </AssociationSet>
+          <EntitySet Name="Licitatie" EntityType="Model.Licitatie" />
+          <EntitySet Name="Oferte" EntityType="Model.Oferte" />
+          <AssociationSet Name="FK__Licitatie__IDPro__656C112C" Association="Model.FK__Licitatie__IDPro__656C112C">
+            <End Role="Produse" EntitySet="Produse" />
+            <End Role="Licitatie" EntitySet="Licitatie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Oferte__IDLicita__3C69FB99" Association="Model.FK__Oferte__IDLicita__3C69FB99">
+            <End Role="Licitatie" EntitySet="Licitatie" />
+            <End Role="Oferte" EntitySet="Oferte" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Oferte__IdUser__3D5E1FD2" Association="Model.FK__Oferte__IdUser__3D5E1FD2">
+            <End Role="Useri" EntitySet="Useri" />
+            <End Role="Oferte" EntitySet="Oferte" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="UseriRol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="Rol" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Useri" Relationship="Model.FK__Rol__IdUser__782D8EFF" FromRole="UseriRol" ToRole="Useri" />
+        </EntityType>
+        <EntityType Name="Produse">
+          <Key>
+            <PropertyRef Name="IDProdus" />
+          </Key>
+          <Property Name="IDProdus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeProdus" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PretEstimat" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="CodCategorie" Type="Int32" Nullable="false" />
+          <Property Name="NumeProprietar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Imagine" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CategoriiProduse" Relationship="Model.FK__Produse__CodCate__398D8EEE" FromRole="Produse" ToRole="CategoriiProduse" />
+          <NavigationProperty Name="Licitatie" Relationship="Model.FK__Licitatie__IDPro__656C112C" FromRole="Produse" ToRole="Licitatie" />
+        </EntityType>
+        <Association Name="FK__Produse__CodCate__398D8EEE">
+          <End Type="Model.CategoriiProduse" Role="CategoriiProduse" Multiplicity="1" />
+          <End Type="Model.Produse" Role="Produse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoriiProduse">
+              <PropertyRef Name="CodCategorie" />
+            </Principal>
+            <Dependent Role="Produse">
+              <PropertyRef Name="CodCategorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Useri">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nume" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Parola" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UseriRol" Relationship="Model.FK__Rol__IdUser__782D8EFF" FromRole="Useri" ToRole="UseriRol" />
+          <NavigationProperty Name="Oferte" Relationship="Model.FK__Oferte__IdUser__3D5E1FD2" FromRole="Useri" ToRole="Oferte" />
+        </EntityType>
+        <Association Name="FK__Rol__IdUser__782D8EFF">
+          <End Type="Model.Useri" Role="Useri" Multiplicity="0..1" />
+          <End Type="Model.UseriRol" Role="UseriRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Useri">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="UseriRol">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Licitatie">
+          <Key>
+            <PropertyRef Name="IDLicitatie" />
+          </Key>
+          <Property Name="IDLicitatie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataPornire" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DataIncheiere" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="PretInitial" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="IDProdus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produse" Relationship="Model.FK__Licitatie__IDPro__656C112C" FromRole="Licitatie" ToRole="Produse" />
+          <NavigationProperty Name="Oferte" Relationship="Model.FK__Oferte__IDLicita__3C69FB99" FromRole="Licitatie" ToRole="Oferte" />
+        </EntityType>
+        <EntityType Name="Oferte">
+          <Key>
+            <PropertyRef Name="Oferteid" />
+          </Key>
+          <Property Name="Oferteid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDLicitatie" Type="Int32" />
+          <Property Name="IdUser" Type="Int32" />
+          <Property Name="ValoareBid" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="DataBid" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Licitatie" Relationship="Model.FK__Oferte__IDLicita__3C69FB99" FromRole="Oferte" ToRole="Licitatie" />
+          <NavigationProperty Name="Useri" Relationship="Model.FK__Oferte__IdUser__3D5E1FD2" FromRole="Oferte" ToRole="Useri" />
+        </EntityType>
+        <Association Name="FK__Licitatie__IDPro__656C112C">
+          <End Type="Model.Produse" Role="Produse" Multiplicity="1" />
+          <End Type="Model.Licitatie" Role="Licitatie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produse">
+              <PropertyRef Name="IDProdus" />
+            </Principal>
+            <Dependent Role="Licitatie">
+              <PropertyRef Name="IDProdus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Oferte__IDLicita__3C69FB99">
+          <End Type="Model.Licitatie" Role="Licitatie" Multiplicity="0..1" />
+          <End Type="Model.Oferte" Role="Oferte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Licitatie">
+              <PropertyRef Name="IDLicitatie" />
+            </Principal>
+            <Dependent Role="Oferte">
+              <PropertyRef Name="IDLicitatie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Oferte__IdUser__3D5E1FD2">
+          <End Type="Model.Useri" Role="Useri" Multiplicity="0..1" />
+          <End Type="Model.Oferte" Role="Oferte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Useri">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Oferte">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="CategoriiProduse">
+            <EntityTypeMapping TypeName="Model.CategoriiProduse">
+              <MappingFragment StoreEntitySet="CategoriiProduse">
+                <ScalarProperty Name="CodCategorie" ColumnName="CodCategorie" />
+                <ScalarProperty Name="DenumireCategorie" ColumnName="DenumireCategorie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UseriRol">
+            <EntityTypeMapping TypeName="Model.UseriRol">
+              <MappingFragment StoreEntitySet="UseriRol">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produse">
+            <EntityTypeMapping TypeName="Model.Produse">
+              <MappingFragment StoreEntitySet="Produse">
+                <ScalarProperty Name="Imagine" ColumnName="Imagine" />
+                <ScalarProperty Name="NumeProprietar" ColumnName="NumeProprietar" />
+                <ScalarProperty Name="CodCategorie" ColumnName="CodCategorie" />
+                <ScalarProperty Name="PretEstimat" ColumnName="PretEstimat" />
+                <ScalarProperty Name="NumeProdus" ColumnName="NumeProdus" />
+                <ScalarProperty Name="IDProdus" ColumnName="IDProdus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Useri">
+            <EntityTypeMapping TypeName="Model.Useri">
+              <MappingFragment StoreEntitySet="Useri">
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nume" ColumnName="Nume" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Licitatie">
+            <EntityTypeMapping TypeName="Model.Licitatie">
+              <MappingFragment StoreEntitySet="Licitatie">
+                <ScalarProperty Name="IDProdus" ColumnName="IDProdus" />
+                <ScalarProperty Name="PretInitial" ColumnName="PretInitial" />
+                <ScalarProperty Name="DataIncheiere" ColumnName="DataIncheiere" />
+                <ScalarProperty Name="DataPornire" ColumnName="DataPornire" />
+                <ScalarProperty Name="IDLicitatie" ColumnName="IDLicitatie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Oferte">
+            <EntityTypeMapping TypeName="Model.Oferte">
+              <MappingFragment StoreEntitySet="Oferte">
+                <ScalarProperty Name="DataBid" ColumnName="DataBid" />
+                <ScalarProperty Name="ValoareBid" ColumnName="ValoareBid" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IDLicitatie" ColumnName="IDLicitatie" />
+                <ScalarProperty Name="Oferteid" ColumnName="Oferteid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

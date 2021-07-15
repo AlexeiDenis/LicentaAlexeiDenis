@@ -1,0 +1,27 @@
+﻿@model LicentaAlexeiDenis.CategoriiProduse
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CategoriiProduse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DenumireCategorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DenumireCategorie)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifica", "Edit", new { id = Model.CodCategorie }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

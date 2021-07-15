@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a60f10c750664371855a8ae9b2eaa1ad" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.CategoriiProduse" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UseriRol" Width="1.5" PointX="13.125" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.Produse" Width="1.5" PointX="3" PointY="2.25" />
+        <AssociationConnector Association="Model.FK__Produse__CodCate__398D8EEE" />
+        <EntityTypeShape EntityType="Model.Useri" Width="1.5" PointX="7.625" PointY="4.25" />
+        <AssociationConnector Association="Model.FK__Rol__IdUser__782D8EFF" />
+        <EntityTypeShape EntityType="Model.Licitatie" Width="1.5" PointX="7.625" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.Oferte" Width="1.5" PointX="11.375" PointY="1.375" />
+        <AssociationConnector Association="Model.FK__Licitatie__IDPro__656C112C" />
+        <AssociationConnector Association="Model.FK__Oferte__IDLicita__3C69FB99" />
+        <AssociationConnector Association="Model.FK__Oferte__IdUser__3D5E1FD2" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

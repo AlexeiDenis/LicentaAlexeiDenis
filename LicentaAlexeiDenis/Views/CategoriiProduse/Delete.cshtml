@@ -1,0 +1,33 @@
+﻿@model LicentaAlexeiDenis.CategoriiProduse
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Confirmi stergerea categoriei?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DenumireCategorie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DenumireCategorie)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sterge" class="btn btn-danger" /> |
+            @Html.ActionLink("Inapoi", "Index")
+        </div>
+    }
+</div>

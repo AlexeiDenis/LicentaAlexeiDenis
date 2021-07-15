@@ -1,0 +1,52 @@
+﻿@model LicentaAlexeiDenis.Oferte
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Adauga oferta</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.IDLicitatie, "Numele Licitatiei", htmlAttributes: new { style = "color:#1244ff", @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("IDLicitatie", null, htmlAttributes: new { style = "color:#1244ff", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDLicitatie, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <input type="hidden" name="IdUser" value="@ViewBag.IdUser" />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ValoareBid, "Valoarea ofertei:", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ValoareBid, new { htmlAttributes = new { autocomplete = "off", @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ValoareBid, "", new { @class = "text-danger" })
+            <label style="color:#c42626">@ViewBag.notificare </label>
+        </div>
+    </div>
+  
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Adauga oferta" class="btn btn-default" />
+        </div>
+    </div>
+
+
+
+    <div>
+        @Html.ActionLink("Inapoi la pagina principala", "Index", "Licitaties")
+    </div>
+</div>
+}

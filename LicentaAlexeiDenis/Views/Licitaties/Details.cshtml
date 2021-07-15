@@ -1,0 +1,175 @@
+﻿@model LicentaAlexeiDenis.Licitatie
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+@{
+    ViewBag.Title = "Details";
+
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    table, th, td {
+        text-align: center;
+    }
+</style>
+
+<h4>
+
+    @Html.ActionLink("Inapoi la pagina principala", "Index")
+
+</h4>
+
+<h2>Licitatia: @Model.Produse.NumeProdus</h2>
+
+
+<div>
+    <h4 style="color:#1244ff">Licitatie nr: @Model.IDLicitatie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        <dd>
+
+            <img src="@Model.Produse.Imagine" alt="@Model.Produse.NumeProdus" style="width:300px; height:200px;">
+        </dd>
+        <dt>
+            Data Pornire
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataPornire)
+        </dd>
+
+        <dt>
+            Data Incheiere
+        </dt>
+
+        <dd style="color: #a60000;">
+            @Html.DisplayFor(model => model.DataIncheiere)
+        </dd>
+        @if (Model.Oferte.Count == 0)
+        {
+            <dt>
+                Pret Initial
+            </dt>
+        }
+        else
+        {
+            <dt>
+                Ultima oferta
+            </dt>
+
+        }
+        <dd>
+            @Html.DisplayFor(model => model.PretInitial)
+
+        </dd>
+
+
+        <dt>
+            Nume Produs
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produse.NumeProdus)
+        </dd>
+        <dt>
+            Nume Proprietar
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produse.NumeProprietar)
+        </dd>
+    </dl>
+</div>
+
+
+<table class="table table-striped ">
+    <tr>
+        <th>Data Oferta</th>
+        <th>Valoare Oferta</th>
+        <th>User</th>
+    </tr>
+
+    @foreach (var item in Model.Oferte)
+    {
+
+
+        <tr>
+
+            <td>@Html.DisplayFor(modelItem => item.DataBid)</td>
+            <td class="success"> @Html.DisplayFor(modelItem => item.ValoareBid) @("lei")</td>
+            <td>@("Ofertant #")@Html.DisplayFor(modelItem => item.IdUser)</td>
+
+        </tr>
+    }
+</table>
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (DateTime.Now <= Model.DataPornire)
+    {<h3>Inca nu a inceput licitatia</h3>
+
+    }
+    else
+    {
+        if (Model.DataIncheiere > DateTime.Now)
+        {
+            <img src="~/logo/hammer.png" width="40" height="40" />
+            @Html.ActionLink("Adauga Oferta", "Create", "Ofertes")}
+
+        else
+        { if (Model.Oferte.Count == 0)
+            { <h2>Licitatia s-a incheiat fara niciun castigator</h2>}
+            else
+            {
+                var castigator = Model.Oferte.OrderByDescending(c => c.ValoareBid).FirstOrDefault().IdUser;
+            <h2 style="color:forestgreen">CASTIGATORUL ESTE: Ofertant @castigator</h2>}
+                }
+            }
+
+        }
+        else
+        { <svg id="icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 32 32">
+        
+                <defs>
+        
+                    <style>
+        
+
+                        .cls-1 {
+            fill: none;
+            }
+            </style>
+        </defs>
+        <polygon points="17 22 17 14 13 14 13 16 15 16 15 22 12 22 12 24 20 24 20 22 17 22" />
+        <path d="M16,8a1.5,1.5,0,1,0,1.5,1.5A1.5,1.5,0,0,0,16,8Z" />
+        <path d="M16,30A14,14,0,1,1,30,16,14,14,0,0,1,16,30ZM16,4A12,12,0,1,0,28,16,12,12,0,0,0,16,4Z" />
+        <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32" />
+    </svg>
+
+
+    <p style="display:inline-block;font-size:24px;font-weight:400">@Html.ActionLink("Trebuie sa fii conectat pentru a putea licita.", "Autentificare", "Conturi")</p>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
