@@ -1,6 +1,7 @@
 # 👨‍⚖️ Bidding Auction Website
 > College project
 
+![HomePage](homepage.png)
 
 ## General Information
 - This website was made for college. I wanted to recreate a real-world auction website.
@@ -25,8 +26,13 @@ To run this project you need to clone the repository and have installed SQL Serv
 
 
 ## 👀 Video Example
-This GIF shows how an admin add products, auction items and how a user bids.
+- This GIF shows how an admin add products, auction items and how a user bids.
 ![Showcase Project](showcase.gif)
+
+- If the auction item have a starting date greater than today, the user will not be able to add bids to that auction.
+
+![Auction Starting in the future](FutureDate.png)
+
 
 
 
