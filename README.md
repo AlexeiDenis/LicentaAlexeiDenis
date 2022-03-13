@@ -24,9 +24,9 @@ To run this project you need to clone the repository and have installed SQL Serv
 
 
 
-## Video Example
+## 👀 Video Example
 This GIF shows how an admin add products, auction items and how a user bids.
-![Showcase Project](https://i.imgur.com/3iiu6Rq.mp4)
+![Showcase Project](showcase.gif)
 
 
 
