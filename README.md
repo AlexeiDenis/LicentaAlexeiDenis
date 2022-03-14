@@ -17,8 +17,8 @@ To run this project you need to clone the repository and have installed SQL Serv
 | Auth                                | C#, SSMS                            | Handles user regristration, logging in, signing out and resetting users passwords  |
 | Bids                                | C#, SSMS, ADO.NET, Entity Framework | Handles users placing bids on auction listings  |
 | Admin/User                          | C#, SSMS, ADO.NET, Entity Framework | This website have a role user system |
-| Adding Products                     | C#, SSMS, ADO.NET, Entity Framework | Expires auction listings once they have ran out of time remaining on the listing |
-| Adding Categories of Products       | C#, SSMS, ADO.NET, Entity Framework | Handles serving the website to the user utilizing Server Side Rendering using React with Next.js |
+| Adding Products                     | C#, SSMS, ADO.NET, Entity Framework | Adding products to the database|
+| Adding Categories of Products       | C#, SSMS, ADO.NET, Entity Framework | Adding categories |
 | Listings                            | C#, SSMS, ADO.NET, Entity Framework | Allows admins to create and delete auction listings |
 | Payments                            | Stripe                              | Not implemented yet  |
 
