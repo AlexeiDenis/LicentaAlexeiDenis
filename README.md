@@ -11,7 +11,7 @@
 To run this project you need to clone the repository and have installed SQL Server Management to run the db script.
 
 
-## 🤓 Overiew of functionalities ( - the website is pretty much a CRUD app -)
+## 🤓 Overview of functionalities ( - the website is pretty much a CRUD app -)
 | Service                             | Technologies                        | Description             |
 | ----------------------------------- | ----------------------------------- | ----------------------- |
 | Auth                                | C#, SSMS                            | Handles user regristration, logging in, signing out and resetting users passwords  |
