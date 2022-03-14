@@ -3,7 +3,7 @@
 
 ![HomePage](homepage.png)
 
-## General Information
+## 📘 General Information
 - This website was made for college. I wanted to recreate a real-world auction website.
 
 
@@ -18,7 +18,7 @@ To run this project you need to clone the repository and have installed SQL Serv
 | Bids                                | C#, SSMS, ADO.NET, Entity Framework | Handles users placing bids on auction listings  |
 | Admin/User                          | C#, SSMS, ADO.NET, Entity Framework | This website have a role user system |
 | Adding Products                     | C#, SSMS, ADO.NET, Entity Framework | Adding products to the database|
-| Adding Categories of Products       | C#, SSMS, ADO.NET, Entity Framework | Adding categories |
+| Adding Categories of Products       | C#, SSMS, ADO.NET, Entity Framework | Adding categories to the database |
 | Listings                            | C#, SSMS, ADO.NET, Entity Framework | Allows admins to create and delete auction listings |
 | Payments                            | Stripe                              | Not implemented yet  |
 
